@@ -327,6 +327,7 @@ class _SearchPageState extends State<SearchPage> {
                                   ),
                                   Positioned(
                                     width: Dimensions.forty,
+                                    // width: Dimensions.forty,
                                     height: Dimensions.forty,
                                     right: Dimensions.five,
                                     top: Dimensions.five,
