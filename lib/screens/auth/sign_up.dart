@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:printzkart/widgets/custom_input.dart';
+import 'package:Printzkart/widgets/custom_input.dart';
 import '../../constants/constants.dart';
 import '../../constants/dimensions.dart';
 import '../../repository/auth_repository.dart';

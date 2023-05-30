@@ -54,8 +54,8 @@ class Strings{
 
 
     static const String apiKey = "AIzaSyCAI1yyhlNstjfL3fWxfPub_WJXR7AQDHE";
-    static const String phoneNo = "9876543210";
-    static const String phoneNo2 = "9887733101";
+    static const String phoneNo = "9731755782";
+    static const String phoneNo2 = "6360283627";
 
 }
 

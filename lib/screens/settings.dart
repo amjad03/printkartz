@@ -1,8 +1,9 @@
+import 'package:Printzkart/main.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:printzkart/screens/policies/privacy_policy.dart';
+import 'package:Printzkart/screens/policies/privacy_policy.dart';
 
 import '../constants/dimensions.dart';
 import '../repository/auth_repository.dart';
@@ -28,7 +29,8 @@ class _SettingsPageState extends State<SettingsPage> {
     // final FirebaseAuth auth = FirebaseAuth.instance;
 
     goToMainPage(){
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const MainPage()), (Route<dynamic> route) => false);
+      // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const MainPage()), (Route<dynamic> route) => false);
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const LandingPage()), (Route<dynamic> route) => false);
     }
 
     showMessage(){

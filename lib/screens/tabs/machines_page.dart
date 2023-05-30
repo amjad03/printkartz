@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:printzkart/constants/dimensions.dart';
-import 'package:printzkart/repository/auth_repository.dart';
-import 'package:printzkart/widgets/custom_button.dart';
+import 'package:Printzkart/constants/dimensions.dart';
+import 'package:Printzkart/repository/auth_repository.dart';
+import 'package:Printzkart/widgets/custom_button.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 

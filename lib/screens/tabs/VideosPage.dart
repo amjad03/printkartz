@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:printzkart/models/videos_model.dart';
+import 'package:Printzkart/models/videos_model.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../constants/constants.dart';

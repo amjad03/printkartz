@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:printzkart/constants/dimensions.dart';
+import 'package:Printzkart/constants/dimensions.dart';
 
 class CustomButton extends StatefulWidget {
   const CustomButton({Key? key, required this.title, required this.onPressed}) : super(key: key);

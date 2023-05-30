@@ -1,7 +1,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:printzkart/repository/auth_repository.dart';
+import 'package:Printzkart/repository/auth_repository.dart';
 import '../../constants/dimensions.dart';
 import '../../widgets/custom_button.dart';
 

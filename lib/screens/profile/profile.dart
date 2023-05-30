@@ -1,16 +1,17 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:Printzkart/main.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:printzkart/constants/dimensions.dart';
-import 'package:printzkart/screens/settings.dart';
-import 'package:printzkart/screens/auth/sign_in.dart';
-import 'package:printzkart/screens/profile/edit_profile.dart';
+import 'package:Printzkart/constants/dimensions.dart';
+import 'package:Printzkart/screens/settings.dart';
+import 'package:Printzkart/screens/auth/sign_in.dart';
+import 'package:Printzkart/screens/profile/edit_profile.dart';
 
 
 import '../../constants/constants.dart';
@@ -141,7 +142,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
 
     goToMainPage(){
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const MainPage()), (Route<dynamic> route) => false);
+      // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const MainPage()), (Route<dynamic> route) => false);
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const LandingPage()), (Route<dynamic> route) => false);
     }
 
     // Future<void> deleteHistory(BuildContext context) async {

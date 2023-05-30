@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:printzkart/repository/auth_repository.dart';
-import 'package:printzkart/screens/detail_screens/detail_screen_for_3d_model.dart';
-import 'package:printzkart/services/data_service.dart';
-import 'package:printzkart/widgets/show_message.dart';
+import 'package:Printzkart/repository/auth_repository.dart';
+import 'package:Printzkart/screens/detail_screens/detail_screen_for_3d_model.dart';
+import 'package:Printzkart/services/data_service.dart';
+import 'package:Printzkart/widgets/show_message.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -583,28 +583,28 @@ class _ModelsPageState extends State<ModelsPage> {
                                                     overflow: TextOverflow
                                                         .ellipsis,),
                                                   // SizedBox(height: Dimensions.five,),
-                                                  Row(
-                                                    children: [
-                                                      Text("Author : ",
-                                                        style: TextStyle(
-                                                          fontSize: Dimensions
-                                                              .fifteen,
-                                                          fontWeight: FontWeight
-                                                              .w300,),
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,),
-                                                      Text(models[index].author,
-                                                        style: TextStyle(
-                                                          fontSize: Dimensions
-                                                              .fifteen,
-                                                          fontWeight: FontWeight
-                                                              .w400,),
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,),
-                                                    ],
-                                                  )
+                                                  // Row(
+                                                  //   children: [
+                                                  //     Text("Author : ",
+                                                  //       style: TextStyle(
+                                                  //         fontSize: Dimensions
+                                                  //             .fifteen,
+                                                  //         fontWeight: FontWeight
+                                                  //             .w300,),
+                                                  //       maxLines: 1,
+                                                  //       overflow: TextOverflow
+                                                  //           .ellipsis,),
+                                                  //     Text(models[index].author,
+                                                  //       style: TextStyle(
+                                                  //         fontSize: Dimensions
+                                                  //             .fifteen,
+                                                  //         fontWeight: FontWeight
+                                                  //             .w400,),
+                                                  //       maxLines: 1,
+                                                  //       overflow: TextOverflow
+                                                  //           .ellipsis,),
+                                                  //   ],
+                                                  // )
                                                 ],
                                               ),
                                             ),

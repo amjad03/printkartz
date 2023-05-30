@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:printzkart/constants/dimensions.dart';
+import 'package:Printzkart/constants/dimensions.dart';
 
 class PrivacyPolicy extends StatelessWidget {
   const PrivacyPolicy({Key? key}) : super(key: key);

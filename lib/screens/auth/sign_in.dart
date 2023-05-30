@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:printzkart/repository/auth_repository.dart';
-import 'package:printzkart/screens/auth/forgot_password.dart';
-import 'package:printzkart/screens/auth/sign_up.dart';
+import 'package:Printzkart/repository/auth_repository.dart';
+import 'package:Printzkart/screens/auth/forgot_password.dart';
+import 'package:Printzkart/screens/auth/sign_up.dart';
 import '../../constants/constants.dart';
 import '../../constants/dimensions.dart';
 import '../../services/validation_service.dart';

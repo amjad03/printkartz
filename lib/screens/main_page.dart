@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:printzkart/screens/feedback&help/help.dart';
-import 'package:printzkart/screens/profile/profile.dart';
-import 'package:printzkart/screens/search_page.dart';
-import 'package:printzkart/screens/tabs/VideosPage.dart';
-import 'package:printzkart/screens/tabs/filaments_page.dart';
-import 'package:printzkart/screens/tabs/machines_page.dart';
-import 'package:printzkart/screens/tabs/models_page.dart';
-import 'package:printzkart/screens/tabs/profile_page.dart';
-import 'package:printzkart/services/shared_preferences_service.dart';
-import 'package:printzkart/widgets/show_message.dart';
+import 'package:Printzkart/screens/feedback&help/help.dart';
+import 'package:Printzkart/screens/profile/profile.dart';
+import 'package:Printzkart/screens/search_page.dart';
+import 'package:Printzkart/screens/tabs/VideosPage.dart';
+import 'package:Printzkart/screens/tabs/filaments_page.dart';
+import 'package:Printzkart/screens/tabs/machines_page.dart';
+import 'package:Printzkart/screens/tabs/models_page.dart';
+import 'package:Printzkart/screens/tabs/profile_page.dart';
+import 'package:Printzkart/services/shared_preferences_service.dart';
+import 'package:Printzkart/widgets/show_message.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
@@ -19,7 +19,9 @@ import 'auth/sign_in.dart';
 
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  const MainPage({Key? key, required this.initialPage}) : super(key: key);
+
+  final int initialPage;
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -28,7 +30,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   // final _searchController = TextEditingController();
-  int _selectedIndex = 0;
+  // int _selectedIndex = 0;
+  late int _selectedIndex;
   late bool loggedIn;
 
   final List<Widget> _screens = [
@@ -73,6 +76,7 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     checkLoginStatus();
+    _selectedIndex = widget.initialPage;
   }
 
   @override

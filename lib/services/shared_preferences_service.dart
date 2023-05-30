@@ -1,84 +1,38 @@
 import 'package:flutter/foundation.dart';
-import 'package:printzkart/widgets/show_message.dart';
+import 'package:Printzkart/widgets/show_message.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-// class FavoritesManager {
-//   static late SharedPreferences _prefs;
-
-  // Initialize shared preferences
-  // Future<void> init() async {
-  //   _prefs = await SharedPreferences.getInstance();
-  // }
-  //
-  // static Future<void> saveList(String key, List<String> dataList) async {
-  //   await _prefs.setStringList(key, dataList);
-  // }
-  //
-  // // Add an item to favorites
-  // Future<void> addToFavorites(String itemId) async {
-  //   List<String> favorites = _prefs.getStringList('favorites') ?? [];
-  //   favorites.add(itemId);
-  //   await _prefs.setStringList('favorites', favorites);
-  // }
-  //
-  // // Remove an item from favorites
-  // Future<void> removeFromFavorites(String itemId) async {
-  //   List<String> favorites = _prefs.getStringList('favorites') ?? [];
-  //   favorites.remove(itemId);
-  //   await _prefs.setStringList('favorites', favorites);
-  // }
-  //
-  // // Check if an item is in favorites
-  // bool isFavorite(String itemId) {
-  //   List<String> favorites = _prefs.getStringList('favorites') ?? [];
-  //   return favorites.contains(itemId);
-  // }
-  //
-  // // Get all favorite items
-  // List<String> getFavorites() {
-  //   return _prefs.getStringList('favorites') ?? [];
-  // }
-// }
-
-// import 'package:shared_preferences/shared_preferences.dart';
 
 class FavoritesManager with ChangeNotifier{
   static late SharedPreferences _prefs;
 
-  // Initialize shared preferences
   static Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
     // SharedPreferences prefs = await SharedPreferences.getInstance();
 
   }
 
-  // Save list of maps as favorites
-  // static Future<void> saveFavorites(List<Map<dynamic, dynamic>> favorites) async {
-  //   List<String> encodedFavorites = favorites.map((favorite) => favorite.toString()).toList();
-  //   await _prefs.setStringList('favorites', encodedFavorites);
+  // static Future<void> saveToFavorite(favoriteJson) async {
+  //   // String favoriteJson = jsonEncode(favorite);
+  //   await _prefs.setString('favorite', favoriteJson);
+  //   showToast("Saved to Favorites");
   // }
-
-  static Future<void> saveToFavorite(favoriteJson) async {
-    // String favoriteJson = jsonEncode(favorite);
-    await _prefs.setString('favorite', favoriteJson);
-    showToast("Saved to Favorites");
-  }
-
-  static Future<void> saveToFavorite2(newItem) async {
-    final favoriteJson = _prefs.getString('favorite');
-    Map<String, dynamic> favoriteList = {};
-
-    if (favoriteJson != null) {
-      favoriteList = jsonDecode(favoriteJson);
-    }
-
-    favoriteList.addAll(newItem);
-
-    final updatedFavoriteJson = jsonEncode(favoriteList);
-    await _prefs.setString('favorite', updatedFavoriteJson);
-    showToast("Saved to Favorites");
-  }
+  //
+  // static Future<void> saveToFavorite2(newItem) async {
+  //   final favoriteJson = _prefs.getString('favorite');
+  //   Map<String, dynamic> favoriteList = {};
+  //
+  //   if (favoriteJson != null) {
+  //     favoriteList = jsonDecode(favoriteJson);
+  //   }
+  //
+  //   favoriteList.addAll(newItem);
+  //
+  //   final updatedFavoriteJson = jsonEncode(favoriteList);
+  //   await _prefs.setString('favorite', updatedFavoriteJson);
+  //   showToast("Saved to Favorites");
+  // }
 
 
   //--------------------------------------------------------------------//
@@ -162,22 +116,6 @@ class FavoritesManager with ChangeNotifier{
     return false;
   }
 
-  // Retrieve list of favorites
-  // static List<Map<String, dynamic>> getFavorites() {
-  //   List<String> encodedFavorites = _prefs.getStringList('favorite') ?? [];
-  //   List<Map<String, dynamic>> favorites = encodedFavorites
-  //       .map((favorite) => jsonDecode(favorite) as Map<String, dynamic>)
-  //       .toList();
-  //   return favorites;
-  // }
-  // static List<Map<dynamic, dynamic>> getFavorites() {
-  //   List<String>? encodedFavorites = _prefs.getStringList('favorite');
-  //   List<Map<dynamic, dynamic>> favorites = encodedFavorites?.map((favorite) {
-  //     return jsonDecode(favorite) as Map<dynamic, dynamic>;
-  //   }).toList() ?? [];
-  //   return favorites;
-  // }
-
   static Map<dynamic, dynamic> getFavorite() {
     final favoriteJson = _prefs.getString('favorite');
     print(favoriteJson);
@@ -194,35 +132,4 @@ class FavoritesManager with ChangeNotifier{
     }
   }
 
-
-
-
-// static getFromFavorite() {
-  //   // Map<String, dynamic> abc = null;
-  //   String? favoriteJson = _prefs.getString('favorite');
-  //   if (favoriteJson != null) {
-  //     return favoriteJson;
-  //   }
-  //   return null;
-  // }
-  // static List<Map<String, dynamic>> getFavorites() {
-  //   List<String> encodedFavorites = _prefs.getStringList('favorites') ?? [];
-  //   List<Map<String, dynamic>> favorites = encodedFavorites.map((favorite) => Map<String, dynamic>.from(eval(favorite))).toList();
-  //   return favorites;
-  // }
-
-  // Add a favorite item to the list
-  // static Future<void> addFavorite(Map<dynamic, dynamic> favorite) async {
-  //   List<Map<dynamic, dynamic>> favorites = getFavorites();
-  //   favorites.add(favorite);
-  //   await saveFavorites(favorites);
-  //   print("\n\n Added to Favorites");
-  // }
-  //
-  // // Remove a favorite item from the list
-  // static Future<void> removeFavorite(String itemId) async {
-  //   List<Map<dynamic, dynamic>> favorites = getFavorites();
-  //   favorites.removeWhere((favorite) => favorite['id'] == itemId);
-  //   await saveFavorites(favorites);
-  // }
 }

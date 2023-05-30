@@ -4,10 +4,10 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:printzkart/repository/auth_repository.dart';
-import 'package:printzkart/screens/detail_screens/detail_screen_for_3d_model.dart';
-import 'package:printzkart/screens/detail_screens/detail_screen_for_filaments.dart';
-import 'package:printzkart/screens/detail_screens/detail_screen_for_machine.dart';
+import 'package:Printzkart/repository/auth_repository.dart';
+import 'package:Printzkart/screens/detail_screens/detail_screen_for_3d_model.dart';
+import 'package:Printzkart/screens/detail_screens/detail_screen_for_filaments.dart';
+import 'package:Printzkart/screens/detail_screens/detail_screen_for_machine.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/dimensions.dart';
@@ -295,15 +295,15 @@ class _SearchPageState extends State<SearchPage> {
                                           SizedBox(height: Dimensions.ten,),
                                           Text(result[index]['name'], style: TextStyle(fontSize: Dimensions.twenty, fontWeight: FontWeight.w400),maxLines: 1, overflow: TextOverflow.ellipsis,),
                                           SizedBox(height: Dimensions.ten,),
-                                          result[index]['author'] != null
-                                            ?
-                                              Row(
-                                                children: [
-                                                  Text("Author : ", style: TextStyle(fontSize: Dimensions.fifteen, fontWeight: FontWeight.w300, color: Colors.black38),maxLines: 1, overflow: TextOverflow.ellipsis,),
-                                                  Text(result[index]['author'], style: TextStyle(fontSize: Dimensions.fifteen, fontWeight: FontWeight.w400, color: Colors.black54),maxLines: 1, overflow: TextOverflow.ellipsis,),
-                                                ],
-                                              )
-                                            : Container(),
+                                          // result[index]['author'] != null
+                                          //   ?
+                                          //     Row(
+                                          //       children: [
+                                          //         Text("Author : ", style: TextStyle(fontSize: Dimensions.fifteen, fontWeight: FontWeight.w300, color: Colors.black38),maxLines: 1, overflow: TextOverflow.ellipsis,),
+                                          //         Text(result[index]['author'], style: TextStyle(fontSize: Dimensions.fifteen, fontWeight: FontWeight.w400, color: Colors.black54),maxLines: 1, overflow: TextOverflow.ellipsis,),
+                                          //       ],
+                                          //     )
+                                          //   : Container(),
                                           result[index]['salePrice'] != null
                                             ?
                                               Row(
