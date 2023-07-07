@@ -34,21 +34,20 @@ class MyApp extends StatelessWidget {
         create: (_) => ModelTheme(),
         child: Consumer<ModelTheme>(
             builder: (context, ModelTheme themeNotifier, child) {
-              return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: 'Printzkart',
-                routes: {
-                  // "/main": (context) => const MainPage(),
-                  "/main": (context) => const LandingPage(),
-                },
-                theme: AppTheme.lightTheme,
-                darkTheme: AppTheme.darkTheme,
-                themeMode: themeNotifier.isDark ? ThemeMode.light : ThemeMode.dark,
-                // home: const MainPage(),
-                home: const LandingPage(),
-              );
-            })
-    );
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Printzkart',
+            routes: {
+              // "/main": (context) => const MainPage(),
+              "/main": (context) => const LandingPage(),
+            },
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: themeNotifier.isDark ? ThemeMode.light : ThemeMode.dark,
+            // home: const MainPage(),
+            home: const LandingPage(),
+          );
+        }));
     // return MaterialApp(
     //   debugShowCheckedModeBanner: false,
     //   title: 'Printzkart',
@@ -61,17 +60,18 @@ class MyApp extends StatelessWidget {
 }
 
 class LandingPage extends StatefulWidget {
-  const LandingPage({super.key,});
+  const LandingPage({
+    super.key,
+  });
 
   @override
   State<LandingPage> createState() => _LandingPageState();
 }
 
 class _LandingPageState extends State<LandingPage> {
-
   late bool loggedIn;
 
-  void checkLoginStatus(){
+  void checkLoginStatus() {
     loggedIn = checkLoggedIn();
   }
 
@@ -83,14 +83,17 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    var bgColor = Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade700 : Colors.white;
-    var focusColor = Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black;
+    var bgColor = Theme.of(context).brightness == Brightness.dark
+        ? Colors.grey.shade700
+        : Colors.white;
+    var focusColor = Theme.of(context).brightness == Brightness.dark
+        ? Colors.white
+        : Colors.black;
 
     return Scaffold(
       appBar: AppBar(
         title: GestureDetector(
-          onTap: (){
+          onTap: () {
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -99,16 +102,14 @@ class _LandingPageState extends State<LandingPage> {
                     create: (_) => FavoritesManager(),
                     child: SearchPage(),
                   ),
-                )
-            );
+                ));
           },
           child: Container(
             // width: Dimensions.twoHundred,
             height: Dimensions.forty,
             decoration: BoxDecoration(
                 color: bgColor,
-                borderRadius: BorderRadius.circular(Dimensions.ten)
-            ),
+                borderRadius: BorderRadius.circular(Dimensions.ten)),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: Dimensions.ten),
               child: TextField(
@@ -119,7 +120,8 @@ class _LandingPageState extends State<LandingPage> {
                   border: InputBorder.none,
                   focusColor: focusColor,
                   hintText: 'Search here...',
-                  suffixIcon: const Icon(Icons.search,color: Colors.grey,
+                  suffixIcon: const Icon(
+                    Icons.search, color: Colors.grey,
                     // onPressed: () => _search(_searchController.text.trim()),
                   ),
                 ),
@@ -130,23 +132,39 @@ class _LandingPageState extends State<LandingPage> {
         ),
         actions: [
           IconButton(
-              onPressed: (){
-                loggedIn ? Navigator.push(context, MaterialPageRoute(builder: (context) => const HelpScreen()))
+              onPressed: () {
+                loggedIn
+                    ? Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HelpScreen()))
                     : showToast("You are not logged in");
               },
               icon: const Icon(Icons.headset_mic)),
-          !loggedIn ? TextButton(
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const SignInScreen()));
-              },
-              child: const Text("Login",style: TextStyle(color: Colors.white),)) : SizedBox(),
+          !loggedIn
+              ? TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignInScreen()));
+                  },
+                  child: const Text(
+                    "Login",
+                    style: TextStyle(color: Colors.white),
+                  ))
+              : SizedBox(),
           // IconButton(onPressed: (){}, icon: Icon(Icons.account_cirilc))
           IconButton(
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage(length: 0,)));
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ProfilePage(
+                              length: 0,
+                            )));
               },
-              icon: const Icon(Icons.account_circle)
-          ),
+              icon: const Icon(Icons.account_circle)),
         ],
       ),
       body: SingleChildScrollView(
@@ -156,69 +174,58 @@ class _LandingPageState extends State<LandingPage> {
             children: [
               const CustomBannerSlider(),
               const Divider(),
-              SizedBox(height: Dimensions.ten,),
+              SizedBox(
+                height: Dimensions.ten,
+              ),
               GridView(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: Dimensions.ten,
-                    crossAxisSpacing: Dimensions.ten
-                  ),
-                  // itemCount: 4,
-                  shrinkWrap: true,
-                  primary: false,
-                  // itemBuilder: (context, index) {
-                  //   return Container(
-                  //     width: 300,
-                  //     height: 200,
-                  //     decoration: BoxDecoration(
-                  //       gradient: LinearGradient(
-                  //         begin: Alignment.topLeft,
-                  //         end: Alignment.bottomRight,
-                  //         colors: [Color(0xFF6187f9), Colors.lightBlueAccent],
-                  //       ),
-                  //       borderRadius: BorderRadius.circular(10),
-                  //     ),
-                  //     child: Text(
-                  //       '',
-                  //       style: TextStyle(fontSize: 20, color: Colors.white),
-                  //     ),
-                  //   );
-                  // },
+                    crossAxisSpacing: Dimensions.ten),
+                // itemCount: 4,
+                shrinkWrap: true,
+                primary: false,
+                // itemBuilder: (context, index) {
+                //   return Container(
+                //     width: 300,
+                //     height: 200,
+                //     decoration: BoxDecoration(
+                //       gradient: LinearGradient(
+                //         begin: Alignment.topLeft,
+                //         end: Alignment.bottomRight,
+                //         colors: [Color(0xFF6187f9), Colors.lightBlueAccent],
+                //       ),
+                //       borderRadius: BorderRadius.circular(10),
+                //     ),
+                //     child: Text(
+                //       '',
+                //       style: TextStyle(fontSize: 20, color: Colors.white),
+                //     ),
+                //   );
+                // },
                 children: const [
                   CustomCard(
                     icon: Icons.threed_rotation,
                     title: "3D Models",
-                    colors: [
-                      Color(0xFF6187f9),
-                      Colors.lightBlueAccent
-                    ],
+                    colors: [Color(0xFF6187f9), Colors.lightBlueAccent],
                     pageIndex: 0,
                   ),
                   CustomCard(
                     icon: Icons.print,
                     title: "3D Printers",
-                    colors: [
-                      Colors.deepOrange,
-                      Colors.orange
-                    ],
+                    colors: [Colors.deepOrange, Colors.orange],
                     pageIndex: 1,
                   ),
                   CustomCard(
                     icon: Icons.earbuds,
                     title: "Filaments",
-                    colors: [
-                      Colors.purple,
-                      Colors.purpleAccent
-                    ],
+                    colors: [Colors.purple, Colors.purpleAccent],
                     pageIndex: 2,
                   ),
                   CustomCard(
                     icon: Icons.play_circle_filled,
                     title: "Videos",
-                    colors: [
-                      Colors.pink,
-                      Colors.pinkAccent
-                    ],
+                    colors: [Colors.pink, Colors.pinkAccent],
                     pageIndex: 3,
                   ),
                   // GestureDetector(
@@ -314,7 +321,11 @@ class _LandingPageState extends State<LandingPage> {
 
 class CustomCard extends StatelessWidget {
   const CustomCard({
-    super.key, required this.icon, required this.title, required this.colors, required this.pageIndex,
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.colors,
+    required this.pageIndex,
   });
 
   final IconData icon;
@@ -325,37 +336,60 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         // Navigator.push(context, MaterialPageRoute(builder: (context) => const MainPage()));
         // print("clicked");
         // navigate;
-        Navigator.push(context, MaterialPageRoute(builder: (context) => MainPage(initialPage: pageIndex,)));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MainPage(
+                      initialPage: pageIndex,
+                    )));
       },
       child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            // colors: [Color(0xFF6187f9), Colors.lightBlueAccent],
-            colors: colors,
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          children: [
-            Expanded(
-                child: Center(
-                    child: Icon(icon, size: Dimensions.sixty,color: Colors.white,))
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              // colors: [Color(0xFF6187f9), Colors.lightBlueAccent],
+              colors: colors,
             ),
-            // SizedBox(height: Dimensions.fifteen,),
-            Text(title, style: TextStyle(fontSize: Dimensions.twenty, color: Colors.white),textAlign: TextAlign.center,),
-            SizedBox(height: Dimensions.ten,),
-            Divider(indent: Dimensions.fifteen, endIndent: Dimensions.fifteen, color: Colors.white,),
-            const Icon(Icons.arrow_forward,color: Colors.white,),
-            SizedBox(height: Dimensions.fifteen,),
-          ],
-        )
-      ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                  child: Center(
+                      child: Icon(
+                icon,
+                size: Dimensions.forty,
+                color: Colors.white,
+              ))),
+              // SizedBox(height: Dimensions.fifteen,),
+              Text(
+                title,
+                style:
+                    TextStyle(fontSize: Dimensions.twenty, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: Dimensions.ten,
+              ),
+              Divider(
+                indent: Dimensions.fifteen,
+                endIndent: Dimensions.fifteen,
+                color: Colors.white,
+              ),
+              const Icon(
+                Icons.arrow_forward,
+                color: Colors.white,
+              ),
+              SizedBox(
+                height: Dimensions.fifteen,
+              ),
+            ],
+          )),
     );
   }
 }
