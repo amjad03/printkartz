@@ -249,7 +249,7 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
   void moveToHomePage() {
-    Navigator.pushNamedAndRemoveUntil(context, "/main", (route) => false);
+    Navigator.pushNamedAndRemoveUntil(context, "/mainPage", (route) => false);
   }
 
   void snackBar(String res){

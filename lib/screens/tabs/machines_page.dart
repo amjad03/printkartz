@@ -357,13 +357,13 @@ class _MachinesPageState extends State<MachinesPage> {
                         child: SizedBox(
                           width: double.infinity,
                           height: Dimensions.fifty,
-                          child: ElevatedButton(
+                          child: CustomButton(
                               onPressed: (){
                                 // launchURL("https://www.printzkart.in/shop");
                                 var url = Uri.parse("https://www.printzkart.in/shop?Category=3D+Printers");
                                 launchUrl(url);
                               },
-                              child: const Text("View All Machines")
+                              title: "View All Machines"
                           ),
                         ),
                       ),

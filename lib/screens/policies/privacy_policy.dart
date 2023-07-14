@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:Printzkart/constants/dimensions.dart';
 
+import '../../constants/constants.dart';
+
 class PrivacyPolicy extends StatelessWidget {
   const PrivacyPolicy({Key? key}) : super(key: key);
 
@@ -21,9 +23,9 @@ class PrivacyPolicy extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Privacy Policy for Wallpaper World",style: TextStyle(fontSize: Dimensions.eighteen,fontWeight: FontWeight.bold,fontFamily: 'Inter')),
+              Text("Privacy Policy for ${Strings.appTitle}",style: TextStyle(fontSize: Dimensions.eighteen,fontWeight: FontWeight.bold,fontFamily: 'Inter')),
               SizedBox(height: Dimensions.height10,),
-              Text('At Wallpaper World, we are committed to protecting the privacy of our users. This Privacy Policy describes how we collect, use, and disclose information about you when you use our wallpaper app ("Wallpaper World").',style: TextStyle(fontSize: Dimensions.fifteen),textAlign: TextAlign.left,),
+              Text('At ${Strings.appTitle}, we are committed to protecting the privacy of our users. This Privacy Policy describes how we collect, use, and disclose information about you when you use our app ("${Strings.appTitle}").',style: TextStyle(fontSize: Dimensions.fifteen),textAlign: TextAlign.left,),
               const Divider(),
               SizedBox(height: Dimensions.height10,),
               Text("Information We Collect",style: TextStyle(fontSize: Dimensions.eighteen,fontWeight: FontWeight.w400,fontFamily: 'Inter')),
@@ -56,7 +58,7 @@ class PrivacyPolicy extends StatelessWidget {
               Text("Contact Us:",style: TextStyle(fontSize: Dimensions.eighteen,fontWeight: FontWeight.w400,fontFamily: 'Inter')),
               SizedBox(height: Dimensions.height10,),
               Text('If you have any questions about this Privacy Policy or our privacy practices, please contact us at ',style: TextStyle(fontSize: Dimensions.fifteen),textAlign: TextAlign.left,),
-              Text('query.wallpaper_world@gmail.com',style: TextStyle(fontSize: Dimensions.fifteen,color: Colors.blue),textAlign: TextAlign.left,),
+              Text(Strings.email,style: TextStyle(fontSize: Dimensions.fifteen,color: Colors.blue),textAlign: TextAlign.left,),
 
             ],
           ),

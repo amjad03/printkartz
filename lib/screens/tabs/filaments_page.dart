@@ -1,3 +1,4 @@
+import 'package:Printzkart/widgets/custom_button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -230,10 +231,13 @@ class _FilamentsPageState extends State<FilamentsPage> {
                                                 Expanded(
                                                   child: ClipRRect(
                                                     borderRadius: BorderRadius.circular(Dimensions.five),
-                                                    child: CachedNetworkImage(
-                                                      imageUrl: filaments[index].displayImage.toString(),
-                                                      // 'https://rukminim1.flixcart.com/image/416/416/kcqk4nk0/printer-filament/f/z/t/1-75-1-kg-1-75mm-yellow-pla-filament-3d-printing-filament-for-3d-original-imaftsyqy8qzz6ag.jpeg?q=70',
-                                                      // fit: BoxFit.cover,
+                                                    child: SizedBox(
+                                                      width: double.maxFinite,
+                                                      child: CachedNetworkImage(
+                                                        imageUrl: filaments[index].displayImage.toString(),
+                                                        // 'https://rukminim1.flixcart.com/image/416/416/kcqk4nk0/printer-filament/f/z/t/1-75-1-kg-1-75mm-yellow-pla-filament-3d-printing-filament-for-3d-original-imaftsyqy8qzz6ag.jpeg?q=70',
+                                                        fit: BoxFit.cover,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -320,13 +324,13 @@ class _FilamentsPageState extends State<FilamentsPage> {
                           child: SizedBox(
                             width: double.infinity,
                             height: Dimensions.fifty,
-                            child: ElevatedButton(
+                            child: CustomButton(
                                 onPressed: (){
                                   // launchURL("https://www.printzkart.in/shop");
                                   var url = Uri.parse("https://www.printzkart.in/shop");
                                   launchUrl(url);
                                 },
-                                child: const Text("View All")
+                                title: "View All"
                             ),
                           ),
                         ),

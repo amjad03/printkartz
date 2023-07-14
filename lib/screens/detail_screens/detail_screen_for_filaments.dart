@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'dart:io';
+import 'package:Printzkart/widgets/custom_button.dart';
 import 'package:share/share.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -113,35 +114,35 @@ class _DetailScreenForFilamentState extends State<DetailScreenForFilament> {
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          var msg = 'Hey,Check out this 3D Printer Filament I found on ${Strings.appTitle}! You can download the app and discover more like this from the Google Play Store: ${Strings.playStoreLink}';
-                          _shareFile(widget.displayImage, msg);
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.only(top: Dimensions.ten, right: Dimensions.ten),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Container(
-                              // padding: EdgeInsets.all(Dimensions.ten),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(Dimensions.five),
-                                    color: Colors.white,
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.black38,
-                                          blurRadius: Dimensions.five
-                                      )
-                                    ]
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.all(Dimensions.five),
-                                  child: Icon(Icons.share, size: Dimensions.thirty,),
-                                )
-                            ),
-                          ),
-                        ),
-                      ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     var msg = 'Hey,Check out this 3D Printer Filament I found on ${Strings.appTitle}! You can download the app and discover more like this from the Google Play Store: ${Strings.playStoreLink}';
+                      //     _shareFile(widget.displayImage, msg);
+                      //   },
+                      //   child: Padding(
+                      //     padding: EdgeInsets.only(top: Dimensions.ten, right: Dimensions.ten),
+                      //     child: Align(
+                      //       alignment: Alignment.centerRight,
+                      //       child: Container(
+                      //         // padding: EdgeInsets.all(Dimensions.ten),
+                      //           decoration: BoxDecoration(
+                      //               borderRadius: BorderRadius.circular(Dimensions.five),
+                      //               color: Colors.white,
+                      //               boxShadow: [
+                      //                 BoxShadow(
+                      //                     color: Colors.black38,
+                      //                     blurRadius: Dimensions.five
+                      //                 )
+                      //               ]
+                      //           ),
+                      //           child: Padding(
+                      //             padding: EdgeInsets.all(Dimensions.five),
+                      //             child: Icon(Icons.share, size: Dimensions.thirty,),
+                      //           )
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ]
                 ),
                 SizedBox(height: Dimensions.ten,),
@@ -174,7 +175,7 @@ class _DetailScreenForFilamentState extends State<DetailScreenForFilament> {
                           ),
                         ),
                       ),
-                      Divider(),
+                      const Divider(),
                       Text(widget.name,style: TextStyle(fontSize: Dimensions.twenty, fontWeight: FontWeight.bold), maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.left,),
                       SizedBox(height: Dimensions.fifteen,),
                       // widget.isMachine ? Text( widget.itemDescription,style: TextStyle(fontSize: Dimensions.fifteen, fontWeight: FontWeight.w300), maxLines: readMore ? 30 : 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.left,) : Container(),
@@ -201,7 +202,7 @@ class _DetailScreenForFilamentState extends State<DetailScreenForFilament> {
                             },
                             child: Text(readMore ? "Read Less" : "Read More",style: TextStyle(color: Colors.blue,decoration: TextDecoration.underline),)),
                       ) : Container(),
-                      Divider(),
+                      const Divider(),
                       Text("Specifications", style: TextStyle(fontSize: Dimensions.twenty,fontWeight: FontWeight.bold),),
                       SizedBox(height: Dimensions.fifteen,),
                       Text("General", style: TextStyle(fontSize: Dimensions.fifteen,fontWeight: FontWeight.bold),),
@@ -218,7 +219,16 @@ class _DetailScreenForFilamentState extends State<DetailScreenForFilament> {
                       TwoTextInRow2(title: 'Length', pair: widget.length,),
                       TwoTextInRow2(title: 'Filament Diameter', pair: widget.filamentDiameter,),
                       TwoTextInRow2(title: 'Filament Weight', pair: widget.filamentWeight,),
+                      SizedBox(height: Dimensions.ten,),
+                      SizedBox(
+                        width: double.maxFinite,
+                        child: CustomButton(
+                            title: "Buy Now",
+                            onPressed: (){
 
+                            }
+                        ),
+                      )
 
                       // SizedBox(height: Dimensions.ten,),
                       // Row(
@@ -335,19 +345,26 @@ class _DetailScreenForFilamentState extends State<DetailScreenForFilament> {
           ),
           Visibility(
               visible: _showProgressIndicator,
-              child: Opacity(
+              child: const Opacity(
                 opacity: 0.4,
                 child: ModalBarrier(dismissible: false, color: Colors.black),
               )),
           Visibility(
             visible: _showProgressIndicator,
-            child: Center(
+            child: const Center(
               child: CircularProgressIndicator(
                 color: Colors.white,
               ),
             ),
           ),
         ]
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.share),
+        onPressed: (){
+          var msg = 'Hey,Check out this 3D Printer Filament I found on ${Strings.appTitle}! You can download the app and discover more like this from the Google Play Store: ${Strings.playStoreLink}';
+          _shareFile(widget.displayImage, msg);
+        },
       ),
     );
   }

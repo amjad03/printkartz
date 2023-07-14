@@ -33,9 +33,9 @@ import '../user_features/favorites.dart';
 bool noData = false;
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key, required this.length}) : super(key: key);
+  const ProfilePage({Key? key, required this.showAppbar,}) : super(key: key);
 
-  final int length;
+  final bool showAppbar;
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -187,17 +187,28 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
       backgroundColor: bgColor,
-      appBar: AppBar(
+      // appBar: AppBar(
+      //   title: const Text("Profile",style: TextStyle(fontFamily: 'Inter'),),
+      //   centerTitle: true,
+      //   actions: [
+      //     IconButton(onPressed: () {
+      //         Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsPage()));
+      //       },
+      //       icon: const Icon(Icons.settings)
+      //     ),
+      //   ],
+      // ),
+      appBar: widget.showAppbar ? AppBar(
         title: const Text("Profile",style: TextStyle(fontFamily: 'Inter'),),
         centerTitle: true,
         actions: [
           IconButton(onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsPage()));
-            },
-            icon: const Icon(Icons.settings)
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsPage()));
+          },
+              icon: const Icon(Icons.settings)
           ),
         ],
-      ),
+      ) : null,
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.all(Dimensions.twenty),

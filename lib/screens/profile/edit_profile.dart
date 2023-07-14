@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:Printzkart/repository/auth_repository.dart';
 import '../../constants/dimensions.dart';
 import '../../widgets/custom_button.dart';
+import '../user_features/update_phone_number.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -46,25 +47,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Enter Your New Name'),
-            content: TextFormField(
-              controller: nameController,
-              textAlign: TextAlign.start,
-              cursorColor: Colors.grey,
-              keyboardType: TextInputType.text,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Colors.grey,
-                        width: 1
-                    )
+            content: SizedBox(
+              height: Dimensions.fifty,
+              child: TextFormField(
+                controller: nameController,
+                textAlign: TextAlign.start,
+                cursorColor: Colors.grey,
+                keyboardType: TextInputType.text,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Colors.grey,
+                          width: 1
+                      )
+                  ),
+                  focusColor: Colors.grey,
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: Colors.grey,
+                          width: 1
+                      )
+                  )
                 ),
-                focusColor: Colors.grey,
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: Colors.grey,
-                        width: 1
-                    )
-                )
               ),
             ),
             actions: <Widget>[
@@ -105,25 +109,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Enter Your New Email'),
-            content: TextFormField(
-              controller: emailController,
-              textAlign: TextAlign.start,
-              cursorColor: Colors.grey,
-              keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Colors.grey,
-                          width: 1
-                      )
-                  ),
-                  focusColor: Colors.grey,
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Colors.grey,
-                          width: 1
-                      )
-                  )
+            content: SizedBox(
+              height: Dimensions.fifty,
+              child: TextFormField(
+                controller: emailController,
+                textAlign: TextAlign.start,
+                cursorColor: Colors.grey,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Colors.grey,
+                            width: 1
+                        )
+                    ),
+                    focusColor: Colors.grey,
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Colors.grey,
+                            width: 1
+                        )
+                    )
+                ),
               ),
             ),
             actions: <Widget>[
@@ -290,60 +297,123 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               // mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                  children: [
-                    Text("Name : ",style: TextStyle(fontSize: Dimensions.twenty),),
-                    Text(currentUser?.displayName ?? '',style: TextStyle(fontSize: Dimensions.twenty),overflow: TextOverflow.ellipsis,),
-                    IconButton(onPressed: () {
-                      editName(context);
-                    },
-                        icon: const Icon(Icons.edit)
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text("Email : ",style: TextStyle(fontSize: Dimensions.twenty),),
-                    SizedBox(
-                      width: Dimensions.twoHundred,
-                        child: Text(currentUser?.email ?? '',style: TextStyle(fontSize: Dimensions.twenty,),overflow: TextOverflow.ellipsis,)),
-                    IconButton(onPressed: () {
-                      editEmail(context);
-                    },
-                        icon: const Icon(Icons.edit)
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text("Phone : ",style: TextStyle(fontSize: Dimensions.twenty),),
-                    Text(currentUser?.phoneNumber ?? '-',style: TextStyle(fontSize: Dimensions.twenty),overflow: TextOverflow.ellipsis,),
-                    IconButton(
-                        onPressed: () {
-                          editPhone(context);
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black38,
+                        blurRadius: Dimensions.ten
+                      )
+                    ],
+                    borderRadius: BorderRadius.circular(Dimensions.fifteen)
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: Dimensions.fifteen, vertical: Dimensions.five),
+                    child: Row(
+                      children: [
+                        Text("Name : ",style: TextStyle(fontSize: Dimensions.twenty),),
+                        Expanded(child: Text(currentUser?.displayName ?? '',style: TextStyle(fontSize: Dimensions.twenty),overflow: TextOverflow.ellipsis,)),
+                        IconButton(onPressed: () {
+                          editName(context);
                         },
-                        icon: const Icon(Icons.edit)
-                    )
-                  ],
+                            icon: const Icon(Icons.edit)
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-                Row(
-                  children: [
-                    Text("Password : ",style: TextStyle(fontSize: Dimensions.twenty),),
-                    Text('**********',style: TextStyle(fontSize: Dimensions.twenty),overflow: TextOverflow.ellipsis,),
-                    IconButton(
-                        onPressed: () {
-                          editPassword(context);
+                SizedBox(height: Dimensions.ten,),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black38,
+                          blurRadius: Dimensions.ten
+                        )
+                      ],
+                    borderRadius: BorderRadius.circular(Dimensions.fifteen)
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: Dimensions.fifteen, vertical: Dimensions.five),
+                    child: Row(
+                      children: [
+                        Text("Email : ",style: TextStyle(fontSize: Dimensions.twenty),),
+                        Expanded(child: Text(currentUser?.email ?? '',style: TextStyle(fontSize: Dimensions.twenty,),overflow: TextOverflow.ellipsis,)),
+                        IconButton(onPressed: () {
+                          editEmail(context);
                         },
-                        icon: const Icon(Icons.edit)
-                    )
-                  ],
+                            icon: const Icon(Icons.edit)
+                        )
+                      ],
+                    ),
+                  ),
                 ),
+                SizedBox(height: Dimensions.twenty,),
+                const Divider(),
+                SizedBox(height: Dimensions.twenty,),
+                // Container(
+                //   decoration: BoxDecoration(
+                //       color: Colors.white,
+                //       boxShadow: [
+                //         BoxShadow(
+                //             color: Colors.black38,
+                //             blurRadius: Dimensions.ten
+                //         )
+                //       ],
+                //       borderRadius: BorderRadius.circular(Dimensions.fifteen)
+                //   ),
+                //   child: Padding(
+                //     padding: EdgeInsets.symmetric(horizontal: Dimensions.fifteen, vertical: Dimensions.five),
+                //     child: Row(
+                //       children: [
+                //         Text("Phone : ",style: TextStyle(fontSize: Dimensions.twenty),),
+                //         Expanded(child: Text(currentUser?.phoneNumber ?? '- - - - - - - - -',style: TextStyle(fontSize: Dimensions.twenty,),overflow: TextOverflow.ellipsis,)),
+                //         IconButton(onPressed: () {
+                //           editEmail(context);
+                //         },
+                //             icon: const Icon(Icons.edit)
+                //         )
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                // SizedBox(height: Dimensions.ten,),
+                // Row(
+                //   children: [
+                //     Text("Phone : ",style: TextStyle(fontSize: Dimensions.twenty),),
+                //     Text(currentUser?.phoneNumber ?? '-',style: TextStyle(fontSize: Dimensions.twenty),overflow: TextOverflow.ellipsis,),
+                //     IconButton(
+                //         onPressed: () {
+                //           // editPhone(context);
+                //           Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePhoneNumberScreen()));
+                //         },
+                //         icon: const Icon(Icons.edit)
+                //     )
+                //   ],
+                // ),
+                // Row(
+                //   children: [
+                //     Text("Password : ",style: TextStyle(fontSize: Dimensions.twenty),),
+                //     Text('**********',style: TextStyle(fontSize: Dimensions.twenty),overflow: TextOverflow.ellipsis,),
+                //     IconButton(
+                //         onPressed: () {
+                //           editPassword(context);
+                //         },
+                //         icon: const Icon(Icons.edit)
+                //     )
+                //   ],
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    customRoundedButton('Cancel', Icons.cancel, onPressed: () {
-                      Navigator.pop(context);
-                    }),
+                    SizedBox(
+                      height: Dimensions.forty,
+                      child: customRoundedButton('Cancel', Icons.cancel, onPressed: () {
+                        Navigator.pop(context);
+                      }),
+                    ),
                   ],
                 ),
 

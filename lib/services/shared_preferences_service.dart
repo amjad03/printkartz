@@ -91,7 +91,7 @@ class FavoritesManager with ChangeNotifier{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String>? itemJsonList = prefs.getStringList('favorites');
     if (itemJsonList == null) {
-      showToast("No Wallpapers found");
+      showToast("No items found");
       return [];
     }
     List itemList = itemJsonList.map((itemJson) => jsonDecode(itemJson)).toList();

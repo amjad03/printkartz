@@ -399,6 +399,8 @@ import '../detail_screens/detail_screen_for_filaments.dart';
 import '../detail_screens/detail_screen_for_machine.dart';
 
 class FavoritesScreen extends StatefulWidget {
+  const FavoritesScreen({super.key});
+
   @override
   FavoritesScreenState createState() => FavoritesScreenState();
 }
@@ -406,12 +408,14 @@ class FavoritesScreen extends StatefulWidget {
 class FavoritesScreenState extends State<FavoritesScreen> {
   List<Map<dynamic, dynamic>> favorites = [];
   // final favorites = [];
+  int len = 0;
 
   @override
   void initState() {
     super.initState();
     loadFavorites();
     FavoritesManager.init();
+    getFavLength();
   }
 
   Future<void> loadFavorites() async {
@@ -434,6 +438,21 @@ class FavoritesScreenState extends State<FavoritesScreen> {
     // });
   }
 
+  Future<void> getFavLength() async {
+    var data = FavoritesManager.getFavorites();
+    data.then((value) => setLen(value.length));
+    // setState(() {
+    //   len = data.
+    // });
+
+  }
+
+  void setLen(length){
+    setState(() {
+      len = length;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -444,9 +463,16 @@ class FavoritesScreenState extends State<FavoritesScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ChangeNotifierProvider(
+            len > 0 ? ChangeNotifierProvider(
               create: (_) => FavoritesManager(),
-              child: FavoritesList(),
+              child: const FavoritesList(),
+            )
+            :
+            SizedBox(
+              height: Dimensions.sixHundred,
+              child: Center(
+                child: Text("You have not added any items\n in the favorites",style: TextStyle(fontSize: Dimensions.twenty,height: 1.5), textAlign: TextAlign.center,),
+              ),
             ),
             // const FavoritesList(),
           ],
@@ -821,7 +847,7 @@ class _FavoritesListState extends State<FavoritesList> {
                                                   )
                                                 ]
                                             ),
-                                            child: Icon(Icons.delete)
+                                            child: const Icon(Icons.delete)
                                         ),
                                       )
                                   ),
@@ -986,7 +1012,7 @@ class _FavoritesListState extends State<FavoritesList> {
               }
               else{
                 return Center(
-                  child: Text("You have not added any wallpapers to favorites",style: TextStyle(fontSize: Dimensions.twenty,height: 1.5),textAlign: TextAlign.center,),
+                  child: Text("You have not added any items to favorites",style: TextStyle(fontSize: Dimensions.twenty,height: 1.5),textAlign: TextAlign.center,),
                 );
               }
             },

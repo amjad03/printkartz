@@ -101,6 +101,8 @@ void addUserData(name,email,gender,phone) async {
   prefs.setString('email', email);
 
   final user = FirebaseAuth.instance.currentUser;
+
+
   final userId = user?.uid;
   if (kDebugMode) {
     print(userId);

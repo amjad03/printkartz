@@ -56,6 +56,8 @@ class Strings{
     static const String apiKey = "AIzaSyCAI1yyhlNstjfL3fWxfPub_WJXR7AQDHE";
     static const String phoneNo = "9731755782";
     static const String phoneNo2 = "6360283627";
+    // static const String email = "razaamjad057@gmail.com";
+    static const String email = "info@printzkart.in";
 
 }
 

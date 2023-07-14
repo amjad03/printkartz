@@ -1,3 +1,4 @@
+import 'package:Printzkart/widgets/custom_button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -736,14 +737,14 @@ class _ModelsPageState extends State<ModelsPage> {
                           child: SizedBox(
                             width: double.infinity,
                             height: Dimensions.fifty,
-                            child: ElevatedButton(
+                            child: CustomButton(
                                 onPressed: () {
                                   // launchURL("https://www.printzkart.in/shop");
                                   var url = Uri.parse(
                                       "https://www.printzkart.in/shop");
                                   launchUrl(url);
                                 },
-                                child: const Text("View All Models")
+                                title: "View All Models"
                             ),
                           ),
                         ),

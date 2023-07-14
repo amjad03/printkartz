@@ -152,42 +152,42 @@ class _DetailScreenState extends State<DetailScreen> {
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          // shareFile(widget.displayImage, "Hey, I found a very good quality 3D printer! Do check this out!");
-                          // setState(() {
-                          //   _showProgressIndicator = true;
-                          // });
-                          var msg = 'Hey,Check out this amazing 3D Printer I found on ${Strings.appTitle}! You can download the app and discover more like this from the Google Play Store: ${Strings.playStoreLink}';
-                          _shareFile(widget.displayImage, msg);
-                          // setState(() {
-                          //   _showProgressIndicator = false;
-                          // });
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.only(top: Dimensions.ten, right: Dimensions.ten),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Container(
-                              // padding: EdgeInsets.all(Dimensions.ten),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(Dimensions.five),
-                                    color: Colors.white,
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.black38,
-                                          blurRadius: Dimensions.five
-                                      )
-                                    ]
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.all(Dimensions.five),
-                                  child: Icon(Icons.share, size: Dimensions.thirty,),
-                                )
-                            ),
-                          ),
-                        ),
-                      ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     // shareFile(widget.displayImage, "Hey, I found a very good quality 3D printer! Do check this out!");
+                      //     // setState(() {
+                      //     //   _showProgressIndicator = true;
+                      //     // });
+                      //     var msg = 'Hey,Check out this amazing 3D Printer I found on ${Strings.appTitle}! You can download the app and discover more like this from the Google Play Store: ${Strings.playStoreLink}';
+                      //     _shareFile(widget.displayImage, msg);
+                      //     // setState(() {
+                      //     //   _showProgressIndicator = false;
+                      //     // });
+                      //   },
+                      //   child: Padding(
+                      //     padding: EdgeInsets.only(top: Dimensions.ten, right: Dimensions.ten),
+                      //     child: Align(
+                      //       alignment: Alignment.centerRight,
+                      //       child: Container(
+                      //         // padding: EdgeInsets.all(Dimensions.ten),
+                      //           decoration: BoxDecoration(
+                      //               borderRadius: BorderRadius.circular(Dimensions.five),
+                      //               color: Colors.white,
+                      //               boxShadow: [
+                      //                 BoxShadow(
+                      //                     color: Colors.black38,
+                      //                     blurRadius: Dimensions.five
+                      //                 )
+                      //               ]
+                      //           ),
+                      //           child: Padding(
+                      //             padding: EdgeInsets.all(Dimensions.five),
+                      //             child: Icon(Icons.share, size: Dimensions.thirty,),
+                      //           )
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ]
                 ),
                 SizedBox(height: Dimensions.ten,),
@@ -283,6 +283,13 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
           ),
         ]
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.share),
+        onPressed: (){
+          var msg = 'Hey,Check out this amazing 3D Printer I found on ${Strings.appTitle}! You can download the app and discover more like this from the Google Play Store: ${Strings.playStoreLink}';
+          _shareFile(widget.displayImage, msg);
+        },
       ),
     );
   }

@@ -1,9 +1,11 @@
 import 'package:Printzkart/repository/auth_repository.dart';
 import 'package:Printzkart/screens/auth/sign_in.dart';
 import 'package:Printzkart/screens/components/carousel/carousel_page.dart';
+import 'package:Printzkart/screens/components/splash_screen.dart';
 import 'package:Printzkart/screens/feedback&help/help.dart';
 import 'package:Printzkart/screens/profile/profile.dart';
 import 'package:Printzkart/screens/search_page.dart';
+import 'package:Printzkart/screens/settings.dart';
 import 'package:Printzkart/services/shared_preferences_service.dart';
 import 'package:Printzkart/widgets/show_message.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,11 +15,16 @@ import 'package:Printzkart/theme/model_theme.dart';
 import 'package:Printzkart/theme/theme.dart';
 import 'package:provider/provider.dart';
 
+import 'constants/constants.dart';
 import 'constants/dimensions.dart';
 import 'firebase_options.dart';
 
+import 'package:flutter_downloader/flutter_downloader.dart';
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await FlutterDownloader.initialize();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -39,13 +46,16 @@ class MyApp extends StatelessWidget {
             title: 'Printzkart',
             routes: {
               // "/main": (context) => const MainPage(),
-              "/main": (context) => const LandingPage(),
+              // "/main": (context) => const LandingPage(),
+              "/main": (context) => const SplashScreen(),
+              "/mainPage": (context) => const LandingPage(),
             },
             theme: AppTheme.lightTheme,
             darkTheme: AppTheme.darkTheme,
             themeMode: themeNotifier.isDark ? ThemeMode.light : ThemeMode.dark,
             // home: const MainPage(),
-            home: const LandingPage(),
+            // home: const LandingPage(),
+            home: const SplashScreen(),
           );
         }));
     // return MaterialApp(
@@ -73,6 +83,19 @@ class _LandingPageState extends State<LandingPage> {
 
   void checkLoginStatus() {
     loggedIn = checkLoggedIn();
+  }
+
+  int _selectedIndex = 0;
+
+  final List<Widget> _screens = [
+    const HomePage(),
+    const ProfilePage(showAppbar: false,),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   @override
@@ -133,14 +156,15 @@ class _LandingPageState extends State<LandingPage> {
         actions: [
           IconButton(
               onPressed: () {
-                loggedIn
+                checkLoggedIn()
                     ? Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const HelpScreen()))
                     : showToast("You are not logged in");
               },
-              icon: const Icon(Icons.headset_mic)),
+              icon: Image.asset("assets/icons/customer_service.png",color: Colors.white,width: 25,)),
+              // const Icon(Icons.headset_mic)),
           !loggedIn
               ? TextButton(
                   onPressed: () {
@@ -153,167 +177,45 @@ class _LandingPageState extends State<LandingPage> {
                     "Login",
                     style: TextStyle(color: Colors.white),
                   ))
-              : SizedBox(),
+              : const SizedBox(),
           // IconButton(onPressed: (){}, icon: Icon(Icons.account_cirilc))
           IconButton(
               onPressed: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ProfilePage(
-                              length: 0,
-                            )));
+                        builder: (context) => const SettingsPage()));
               },
-              icon: const Icon(Icons.account_circle)),
+              icon: const Icon(Icons.settings)),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(Dimensions.ten),
-          child: Column(
-            children: [
-              const CustomBannerSlider(),
-              const Divider(),
-              SizedBox(
-                height: Dimensions.ten,
-              ),
-              GridView(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: Dimensions.ten,
-                    crossAxisSpacing: Dimensions.ten),
-                // itemCount: 4,
-                shrinkWrap: true,
-                primary: false,
-                // itemBuilder: (context, index) {
-                //   return Container(
-                //     width: 300,
-                //     height: 200,
-                //     decoration: BoxDecoration(
-                //       gradient: LinearGradient(
-                //         begin: Alignment.topLeft,
-                //         end: Alignment.bottomRight,
-                //         colors: [Color(0xFF6187f9), Colors.lightBlueAccent],
-                //       ),
-                //       borderRadius: BorderRadius.circular(10),
-                //     ),
-                //     child: Text(
-                //       '',
-                //       style: TextStyle(fontSize: 20, color: Colors.white),
-                //     ),
-                //   );
-                // },
-                children: const [
-                  CustomCard(
-                    icon: Icons.threed_rotation,
-                    title: "3D Models",
-                    colors: [Color(0xFF6187f9), Colors.lightBlueAccent],
-                    pageIndex: 0,
-                  ),
-                  CustomCard(
-                    icon: Icons.print,
-                    title: "3D Printers",
-                    colors: [Colors.deepOrange, Colors.orange],
-                    pageIndex: 1,
-                  ),
-                  CustomCard(
-                    icon: Icons.earbuds,
-                    title: "Filaments",
-                    colors: [Colors.purple, Colors.purpleAccent],
-                    pageIndex: 2,
-                  ),
-                  CustomCard(
-                    icon: Icons.play_circle_filled,
-                    title: "Videos",
-                    colors: [Colors.pink, Colors.pinkAccent],
-                    pageIndex: 3,
-                  ),
-                  // GestureDetector(
-                  //   onTap: (){
-                  //     Navigator.push(context, MaterialPageRoute(builder: (context) => const MainPage(initialPage: 1,)));
-                  //   },
-                  //   child: Container(
-                  //     decoration: BoxDecoration(
-                  //       gradient: const LinearGradient(
-                  //         begin: Alignment.topLeft,
-                  //         end: Alignment.bottomRight,
-                  //         colors: [Colors.deepOrange, Colors.orange],
-                  //       ),
-                  //       borderRadius: BorderRadius.circular(10),
-                  //     ),
-                  //     child: Column(
-                  //       children: [
-                  //         Expanded(
-                  //             child: Center(child: Icon(Icons.print, size: Dimensions.sixty,color: Colors.white,))
-                  //         ),
-                  //         SizedBox(height: Dimensions.fifteen,),
-                  //         Text("3D Printers", style: TextStyle(fontSize: Dimensions.twenty, color: Colors.white),),
-                  //         SizedBox(height: Dimensions.ten,),
-                  //         const Icon(Icons.arrow_forward,color: Colors.white,),
-                  //         SizedBox(height: Dimensions.fifteen,),
-                  //       ],
-                  //     )
-                  //   ),
-                  // ),
-                  // GestureDetector(
-                  //   onTap: (){
-                  //     Navigator.push(context, MaterialPageRoute(builder: (context) => const MainPage(initialPage: 2,)));
-                  //   },
-                  //   child: Container(
-                  //     decoration: BoxDecoration(
-                  //       gradient: const LinearGradient(
-                  //         begin: Alignment.topLeft,
-                  //         end: Alignment.bottomRight,
-                  //         colors: [Colors.purple, Colors.purpleAccent],
-                  //       ),
-                  //       borderRadius: BorderRadius.circular(10),
-                  //     ),
-                  //     child: Column(
-                  //       children: [
-                  //         Expanded(
-                  //             child: Center(child: Icon(Icons.earbuds, size: Dimensions.sixty,color: Colors.white,))
-                  //         ),
-                  //         SizedBox(height: Dimensions.fifteen,),
-                  //         Text("3D Printer\nFilaments",textAlign: TextAlign.center, style: TextStyle(fontSize: Dimensions.twenty, color: Colors.white),),
-                  //         SizedBox(height: Dimensions.ten,),
-                  //         const Icon(Icons.arrow_forward,color: Colors.white,),
-                  //         SizedBox(height: Dimensions.fifteen,),
-                  //       ],
-                  //     )
-                  //   ),
-                  // ),
-                  // GestureDetector(
-                  //   onTap: (){
-                  //     Navigator.push(context, MaterialPageRoute(builder: (context) => const MainPage(initialPage: 3,)));
-                  //   },
-                  //   child: Container(
-                  //     decoration: BoxDecoration(
-                  //       gradient: const LinearGradient(
-                  //         begin: Alignment.topLeft,
-                  //         end: Alignment.bottomRight,
-                  //         colors: [Colors.pink, Colors.pinkAccent],
-                  //       ),
-                  //       borderRadius: BorderRadius.circular(10),
-                  //     ),
-                  //     child: Column(
-                  //       children: [
-                  //         Expanded(
-                  //           child: Center(child: Icon(Icons.play_circle_filled, size: Dimensions.sixty,color: Colors.white,))
-                  //         ),
-                  //         SizedBox(height: Dimensions.fifteen,),
-                  //         Text("Videos", style: TextStyle(fontSize: Dimensions.twenty, color: Colors.white),),
-                  //         SizedBox(height: Dimensions.ten,),
-                  //         const Icon(Icons.arrow_forward,color: Colors.white,),
-                  //         SizedBox(height: Dimensions.fifteen,),
-                  //       ],
-                  //     )
-                  //   ),
-                  // ),
-                ],
-              ),
-            ],
+      body: _screens[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade800 : null,
+        selectedFontSize: Dimensions.ten,
+        iconSize: Dimensions.thirty,
+        // selectedItemColor: Colors.black,
+        // unselectedItemColor: Colors.black26,
+        items: const [
+          BottomNavigationBarItem(
+              activeIcon: Icon(Icons.home),
+              icon: Icon(Icons.home_outlined),
+              label: 'Home',
+              tooltip: 'Home'
           ),
-        ),
+          BottomNavigationBarItem(
+            // activeIcon: Icon(Icons.favorite),
+            // icon: Icon(Icons.favorite_outline),
+            // label: 'Favorites',
+            // tooltip: 'Favorites',
+            activeIcon: Icon(Icons.account_circle),
+            icon: Icon(Icons.account_circle_outlined),
+            label: 'Profile',
+            tooltip: 'Profile',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
     );
   }
@@ -328,7 +230,8 @@ class CustomCard extends StatelessWidget {
     required this.pageIndex,
   });
 
-  final IconData icon;
+  // final IconData icon;
+  final String icon;
   final String title;
   final int pageIndex;
   final List<Color> colors;
@@ -361,11 +264,18 @@ class CustomCard extends StatelessWidget {
             children: [
               Expanded(
                   child: Center(
-                      child: Icon(
-                icon,
-                size: Dimensions.forty,
-                color: Colors.white,
-              ))),
+                    child: Image.asset(
+                        icon,
+                      width: Dimensions.fifty,
+                      color: Colors.white,
+                    ),
+                    //   child: Icon(
+                    //     icon,
+                    //   size: Dimensions.forty,
+                    //   color: Colors.white,
+                    // )
+                  )
+              ),
               // SizedBox(height: Dimensions.fifteen,),
               Text(
                 title,
@@ -390,6 +300,172 @@ class CustomCard extends StatelessWidget {
               ),
             ],
           )),
+    );
+  }
+}
+
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.all(Dimensions.ten),
+        child: Column(
+          children: [
+            const CustomBannerSlider(),
+            const Divider(),
+            SizedBox(
+              height: Dimensions.ten,
+            ),
+            GridView(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: Dimensions.ten,
+                  crossAxisSpacing: Dimensions.ten),
+              // itemCount: 4,
+              shrinkWrap: true,
+              primary: false,
+              // itemBuilder: (context, index) {
+              //   return Container(
+              //     width: 300,
+              //     height: 200,
+              //     decoration: BoxDecoration(
+              //       gradient: LinearGradient(
+              //         begin: Alignment.topLeft,
+              //         end: Alignment.bottomRight,
+              //         colors: [Color(0xFF6187f9), Colors.lightBlueAccent],
+              //       ),
+              //       borderRadius: BorderRadius.circular(10),
+              //     ),
+              //     child: Text(
+              //       '',
+              //       style: TextStyle(fontSize: 20, color: Colors.white),
+              //     ),
+              //   );
+              // },
+              children: [
+                CustomCard(
+                  // icon: Icons.threed_rotation,
+                  icon: AppIcons.model,
+                  title: "3D Models",
+                  colors: [Color(0xFF6187f9), Colors.lightBlueAccent],
+                  pageIndex: 0,
+                ),
+                CustomCard(
+                  // icon: Icons.print,
+                  icon: AppIcons.printer,
+                  title: "3D Printers",
+                  colors: [Colors.deepOrange, Colors.orange],
+                  pageIndex: 1,
+                ),
+                CustomCard(
+                  // icon: Icons.earbuds,
+                  icon: AppIcons.filament,
+                  title: "Filaments",
+                  colors: [Colors.purple, Colors.purpleAccent],
+                  pageIndex: 2,
+                ),
+                CustomCard(
+                  // icon: Icons.play_circle_filled,
+                  icon: AppIcons.videos,
+                  title: "Videos",
+                  colors: [Colors.pink, Colors.pinkAccent],
+                  pageIndex: 3,
+                ),
+                // GestureDetector(
+                //   onTap: (){
+                //     Navigator.push(context, MaterialPageRoute(builder: (context) => const MainPage(initialPage: 1,)));
+                //   },
+                //   child: Container(
+                //     decoration: BoxDecoration(
+                //       gradient: const LinearGradient(
+                //         begin: Alignment.topLeft,
+                //         end: Alignment.bottomRight,
+                //         colors: [Colors.deepOrange, Colors.orange],
+                //       ),
+                //       borderRadius: BorderRadius.circular(10),
+                //     ),
+                //     child: Column(
+                //       children: [
+                //         Expanded(
+                //             child: Center(child: Icon(Icons.print, size: Dimensions.sixty,color: Colors.white,))
+                //         ),
+                //         SizedBox(height: Dimensions.fifteen,),
+                //         Text("3D Printers", style: TextStyle(fontSize: Dimensions.twenty, color: Colors.white),),
+                //         SizedBox(height: Dimensions.ten,),
+                //         const Icon(Icons.arrow_forward,color: Colors.white,),
+                //         SizedBox(height: Dimensions.fifteen,),
+                //       ],
+                //     )
+                //   ),
+                // ),
+                // GestureDetector(
+                //   onTap: (){
+                //     Navigator.push(context, MaterialPageRoute(builder: (context) => const MainPage(initialPage: 2,)));
+                //   },
+                //   child: Container(
+                //     decoration: BoxDecoration(
+                //       gradient: const LinearGradient(
+                //         begin: Alignment.topLeft,
+                //         end: Alignment.bottomRight,
+                //         colors: [Colors.purple, Colors.purpleAccent],
+                //       ),
+                //       borderRadius: BorderRadius.circular(10),
+                //     ),
+                //     child: Column(
+                //       children: [
+                //         Expanded(
+                //             child: Center(child: Icon(Icons.earbuds, size: Dimensions.sixty,color: Colors.white,))
+                //         ),
+                //         SizedBox(height: Dimensions.fifteen,),
+                //         Text("3D Printer\nFilaments",textAlign: TextAlign.center, style: TextStyle(fontSize: Dimensions.twenty, color: Colors.white),),
+                //         SizedBox(height: Dimensions.ten,),
+                //         const Icon(Icons.arrow_forward,color: Colors.white,),
+                //         SizedBox(height: Dimensions.fifteen,),
+                //       ],
+                //     )
+                //   ),
+                // ),
+                // GestureDetector(
+                //   onTap: (){
+                //     Navigator.push(context, MaterialPageRoute(builder: (context) => const MainPage(initialPage: 3,)));
+                //   },
+                //   child: Container(
+                //     decoration: BoxDecoration(
+                //       gradient: const LinearGradient(
+                //         begin: Alignment.topLeft,
+                //         end: Alignment.bottomRight,
+                //         colors: [Colors.pink, Colors.pinkAccent],
+                //       ),
+                //       borderRadius: BorderRadius.circular(10),
+                //     ),
+                //     child: Column(
+                //       children: [
+                //         Expanded(
+                //           child: Center(child: Icon(Icons.play_circle_filled, size: Dimensions.sixty,color: Colors.white,))
+                //         ),
+                //         SizedBox(height: Dimensions.fifteen,),
+                //         Text("Videos", style: TextStyle(fontSize: Dimensions.twenty, color: Colors.white),),
+                //         SizedBox(height: Dimensions.ten,),
+                //         const Icon(Icons.arrow_forward,color: Colors.white,),
+                //         SizedBox(height: Dimensions.fifteen,),
+                //       ],
+                //     )
+                //   ),
+                // ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

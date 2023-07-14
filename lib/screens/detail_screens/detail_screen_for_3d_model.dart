@@ -1,9 +1,13 @@
 import 'dart:typed_data';
 import 'dart:io';
+import 'package:Printzkart/widgets/custom_button.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:share/share.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:path/path.dart' as path;
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -14,6 +18,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../constants/constants.dart';
 import '../../services/helper_class.dart';
+import '../../widgets/show_message.dart';
 
 class DetailScreenFor3dModel extends StatefulWidget {
 
@@ -50,6 +55,100 @@ class _DetailScreenFor3dModelState extends State<DetailScreenFor3dModel> {
   bool readMore = false;
   int currentPage = 0;
   bool _showProgressIndicator = false;
+
+  // void downloadModel(String url) async {
+  //
+  //   // final directory = await getApplicationDocumentsDirectory(); // or getExternalStorageDirectory()
+  //   // final savedDir = directory.path;
+  //   //
+  //   // final fileName = path.basename(url);
+  //
+  //   // final response = await http.get(Uri.parse(url));
+  //   //
+  //   // if (response.statusCode == 200) {
+  //   //   final bytes = response.bodyBytes;
+  //   //   final dir = await getTemporaryDirectory(); // or getExternalStorageDirectory()
+  //   //   final file = File('${dir.path}/$fileName');
+  //   //   await file.writeAsBytes(bytes);
+  //   //   // File downloaded successfully
+  //   //   print("Successful");
+  //   //   showToast("Successfully downloaded");
+  //   // } else {
+  //   //   // Failed to download file
+  //   //   showToast("downloaded failed");
+  //   // }
+  //
+  //   // final taskId = await FlutterDownloader.enqueue(
+  //   //   url: "https://images.pexels.com/photos/16796362/pexels-photo-16796362/free-photo-of-pic-du-midi-de-bigorre-in-pyrenees-with-observatory-at-the-top.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  //   //   savedDir: savedDir,
+  //   //   fileName: fileName,
+  //   //   showNotification: true,
+  //   //   openFileFromNotification: true,
+  //   // );
+  // }
+
+
+  // Future<void> downloadModel(String modelFileUrl) async {
+  //   try {
+  //     final Directory appDir = await getApplicationDocumentsDirectory();
+  //     final String downloadPath = '${appDir.path}/model.obj'; // Change the file extension as per your model format
+  //
+  //     final http.Client client = http.Client();
+  //     final http.Request request =
+  //     http.Request('GET', Uri.parse(modelFileUrl));
+  //     final http.StreamedResponse response = await client.send(request);
+  //     final http.ByteStream stream = http.ByteStream(response.stream);
+  //     final File file = File(downloadPath);
+  //     // final http.StreamedResponse downloadResponse = await http.Response.fromStream(await stream.cast());
+  //     final http.StreamedResponse downloadResponse = await http.Response.fromStream(await stream.cast());
+  //     await downloadResponse.bodyBytes.forEach(file.writeAsBytes);
+  //   } catch (e) {
+  //     print('Error downloading model: $e');
+  //   }
+  // }
+
+
+  // Future<void> downloadModel(String modelFileUrl) async {
+  //   try {
+  //     final Directory appDir = await getApplicationDocumentsDirectory();
+  //     final String downloadPath = '${appDir.path}/model.obj'; // Change the file extension as per your model format
+  //
+  //     final http.Client client = http.Client();
+  //     final http.Response response = await client.get(Uri.parse(modelFileUrl));
+  //     final File file = File(downloadPath);
+  //     await file.writeAsBytes(response.bodyBytes);
+  //     print("Successfully downloaded");
+  //   } catch (e) {
+  //     print('Error downloading model: $e');
+  //   }
+  // }
+
+  Future<String?> getModelDownloadUrl(String modelFilePath) async {
+    try {
+      final firebase_storage.Reference ref =
+      firebase_storage.FirebaseStorage.instance.ref().child(modelFilePath);
+      final String downloadUrl = await ref.getDownloadURL();
+      return downloadUrl;
+    } catch (e) {
+      print('Error retrieving download URL: $e');
+      return null;
+    }
+  }
+
+  Future<void> downloadModel(downloadUrl) async {
+    try {
+      String filename = path.basename(downloadUrl);
+      final Directory appDir = await getApplicationDocumentsDirectory();
+      final String filePath = '${appDir.path}/$filename';
+      final http.Client client = http.Client();
+      final http.Response response = await client.get(Uri.parse(downloadUrl));
+      final File file = File(filePath);
+      await file.writeAsBytes(response.bodyBytes);
+      print('Model downloaded successfully.');
+    } catch (e) {
+      print('Error downloading model: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,35 +198,35 @@ class _DetailScreenFor3dModelState extends State<DetailScreenFor3dModel> {
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          var msg = 'Hey,Check out this amazing 3D Model I found on ${Strings.appTitle}! You can download the app and discover more like this from the Google Play Store: ${Strings.playStoreLink}';
-                          _shareFile(widget.thumbnailUrl, msg);
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.only(top: Dimensions.ten, right: Dimensions.ten),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Container(
-                              // padding: EdgeInsets.all(Dimensions.ten),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(Dimensions.five),
-                                    color: Colors.white,
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.black38,
-                                          blurRadius: Dimensions.five
-                                      )
-                                    ]
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.all(Dimensions.five),
-                                  child: Icon(Icons.share, size: Dimensions.thirty,),
-                                )
-                            ),
-                          ),
-                        ),
-                      ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     var msg = 'Hey,Check out this amazing 3D Model I found on ${Strings.appTitle}! You can download the app and discover more like this from the Google Play Store: ${Strings.playStoreLink}';
+                      //     _shareFile(widget.thumbnailUrl, msg);
+                      //   },
+                      //   child: Padding(
+                      //     padding: EdgeInsets.only(top: Dimensions.ten, right: Dimensions.ten),
+                      //     child: Align(
+                      //       alignment: Alignment.centerRight,
+                      //       child: Container(
+                      //         // padding: EdgeInsets.all(Dimensions.ten),
+                      //           decoration: BoxDecoration(
+                      //               borderRadius: BorderRadius.circular(Dimensions.five),
+                      //               color: Colors.white,
+                      //               boxShadow: [
+                      //                 BoxShadow(
+                      //                     color: Colors.black38,
+                      //                     blurRadius: Dimensions.five
+                      //                 )
+                      //               ]
+                      //           ),
+                      //           child: Padding(
+                      //             padding: EdgeInsets.all(Dimensions.five),
+                      //             child: Icon(Icons.share, size: Dimensions.thirty,),
+                      //           )
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ]
                 ),
                 SizedBox(height: Dimensions.ten,),
@@ -160,7 +259,7 @@ class _DetailScreenFor3dModelState extends State<DetailScreenFor3dModel> {
                           ),
                         ),
                       ),
-                      Divider(),
+                      const Divider(),
                       Text(widget.name,style: TextStyle(fontSize: Dimensions.twenty, fontWeight: FontWeight.bold), maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.left,),
                       SizedBox(height: Dimensions.ten,),
                       Text("by, ${widget.author}",style: TextStyle(fontSize: Dimensions.fifteen, fontWeight: FontWeight.w400), maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.left,),
@@ -176,41 +275,59 @@ class _DetailScreenFor3dModelState extends State<DetailScreenFor3dModel> {
                             },
                             child: Text(readMore ? "Read Less" : "Read More",style: TextStyle(color: Colors.blue,decoration: TextDecoration.underline),)),
                       ) : Container(),
-                      Divider(),
+                      const Divider(),
                       Text("General", style: TextStyle(fontSize: Dimensions.fifteen,fontWeight: FontWeight.bold),),
                       SizedBox(height: Dimensions.fifteen,),
                       TwoTextInRow(title: 'Author', pair: widget.author,),
                       TwoTextInRow(title: 'Date Uploaded', pair: widget.dateUploaded,),
                       TwoTextInRow(title: 'Category', pair: widget.category,),
                       SizedBox(height: Dimensions.twenty,),
-                      widget.category == "free"
-                          ? SizedBox(
+                      SizedBox(
                         width: double.infinity,
                         height: Dimensions.fifty,
-                        child: ElevatedButton(
+                        child: CustomButton(
                             onPressed: (){
                               // launchURL("https://www.printzkart.in/shop");
-                              var url = Uri.parse("https://www.printzkart.in/shop");
-                              launchUrl(url);
+                              // var url = Uri.parse("https://www.printzkart.in/shop");
+                              // launchUrl(url);
+                              // downloadModel(widget.modelFileUrl);
+                              final downloadUrl = getModelDownloadUrl(widget.modelFileUrl);
+                              downloadUrl.then((url) {
+                                downloadModel(url);
+                                // print(url);
+                              });
                             },
-                            child: Text("Get Model")
+                            title: "Get Model"
                         ),
                       )
-                          : SizedBox(
-                        width: double.infinity,
-                        height: Dimensions.fifty,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.orange, // Set the desired background color here
-                            ),
-                            onPressed: (){
-                              // launchURL("https://www.printzkart.in/shop");
-                              var url = Uri.parse("https://www.printzkart.in/shop");
-                              launchUrl(url);
-                            },
-                            child: Text("Get Model")
-                        ),
-                      )
+                      // widget.category == "free"
+                      //     ? SizedBox(
+                      //   width: double.infinity,
+                      //   height: Dimensions.fifty,
+                      //   child: ElevatedButton(
+                      //       onPressed: (){
+                      //         // launchURL("https://www.printzkart.in/shop");
+                      //         // var url = Uri.parse("https://www.printzkart.in/shop");
+                      //         // launchUrl(url);
+                      //       },
+                      //       child: Text("Get Model")
+                      //   ),
+                      // )
+                      //     : SizedBox(
+                      //   width: double.infinity,
+                      //   height: Dimensions.fifty,
+                      //   child: ElevatedButton(
+                      //       style: ElevatedButton.styleFrom(
+                      //         backgroundColor: Colors.orange, // Set the desired background color here
+                      //       ),
+                      //       onPressed: (){
+                      //         // launchURL("https://www.printzkart.in/shop");
+                      //         // var url = Uri.parse("https://www.printzkart.in/shop");
+                      //         // launchUrl(url);
+                      //       },
+                      //       child: Text("Get Model")
+                      //   ),
+                      // )
 
                       // Text("Specifications", style: TextStyle(fontSize: Dimensions.twenty,fontWeight: FontWeight.bold),),
                       // SizedBox(height: Dimensions.fifteen,),
@@ -261,6 +378,13 @@ class _DetailScreenFor3dModelState extends State<DetailScreenFor3dModel> {
             ),
           ),
         ]
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.share),
+        onPressed: (){
+          var msg = 'Hey,Check out this amazing 3D Model I found on ${Strings.appTitle}! You can download the app and discover more like this from the Google Play Store: ${Strings.playStoreLink}';
+          _shareFile(widget.thumbnailUrl, msg);
+        },
       ),
     );
   }

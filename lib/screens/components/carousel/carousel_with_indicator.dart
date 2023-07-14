@@ -42,33 +42,36 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
                 child: ClipRRect(
                   borderRadius:
                       BorderRadius.all(Radius.circular(Dimensions.ten)),
-                  child: CachedNetworkImage(
-                    imageUrl: item.imageUrl,
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) => Shimmer.fromColors(
-                      highlightColor: Colors.white,
-                      baseColor: Colors.grey.shade300,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                        child: ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10.0)),
-                          child: AspectRatio(
-                            aspectRatio: 16 / 8,
-                            child: Container(
-                              color: Colors.grey.shade600,
+                  child: SizedBox(
+                    width: double.maxFinite,
+                    child: CachedNetworkImage(
+                      imageUrl: item.imageUrl,
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) => Shimmer.fromColors(
+                        highlightColor: Colors.white,
+                        baseColor: Colors.grey.shade300,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                          child: ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10.0)),
+                            child: AspectRatio(
+                              aspectRatio: 16 / 8,
+                              child: Container(
+                                color: Colors.grey.shade600,
+                              ),
                             ),
                           ),
                         ),
                       ),
+                      fit: BoxFit.cover,
+                      // width: double.infinity,
                     ),
-                    fit: BoxFit.cover,
-                    // width: double.infinity,
                   ),
                 ),
               ),

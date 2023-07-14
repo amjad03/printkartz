@@ -12,6 +12,8 @@ import 'package:Printzkart/services/shared_preferences_service.dart';
 import 'package:Printzkart/widgets/show_message.dart';
 import 'package:provider/provider.dart';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../constants/constants.dart';
 import '../constants/dimensions.dart';
 import '../repository/auth_repository.dart';
@@ -37,15 +39,15 @@ class _MainPageState extends State<MainPage> {
   final List<Widget> _screens = [
     ChangeNotifierProvider(
       create: (_) => FavoritesManager(),
-      child: ModelsPage(),
+      child: const ModelsPage(),
     ),
     ChangeNotifierProvider(
       create: (_) => FavoritesManager(),
-      child: MachinesPage(),
+      child: const MachinesPage(),
     ),
     ChangeNotifierProvider(
       create: (_) => FavoritesManager(),
-      child: FilamentsPage(),
+      child: const FilamentsPage(),
     ),
     // const ModelsPage(),
     // const MachinesPage(),
@@ -134,7 +136,9 @@ class _MainPageState extends State<MainPage> {
                 loggedIn ? Navigator.push(context, MaterialPageRoute(builder: (context) => const HelpScreen()))
                     : showToast("You are not logged in");
               },
-              icon: const Icon(Icons.headset_mic)),
+              icon: Image.asset("assets/icons/customer_service.png",color: Colors.white,width: 25,)
+              // const FaIcon(FontAwesomeIcons.question)
+          ),
           !loggedIn ? TextButton(
               onPressed: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const SignInScreen()));
@@ -143,7 +147,7 @@ class _MainPageState extends State<MainPage> {
           // IconButton(onPressed: (){}, icon: Icon(Icons.account_cirilc))
           IconButton(
               onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage(length: 0,)));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfilePage(showAppbar: true,)));
               },
               icon: const Icon(Icons.account_circle)
           ),
@@ -171,73 +175,80 @@ class _MainPageState extends State<MainPage> {
       //   },
       // ),
       bottomNavigationBar: BottomNavigationBar(
-        // backgroundColor: Colors.grey,
+        // selectedLabelStyle: TextStyle(
+        //   color: Colors.black
+        // ),
+        selectedItemColor: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
         selectedFontSize: Dimensions.ten,
         iconSize: Dimensions.thirty,
-        selectedItemColor: focusColor,
-        unselectedItemColor: unselectedColor,
-        items: const [
+        // selectedItemColor: focusColor,
+        // unselectedItemColor: unselectedColor,
+        items: [
           BottomNavigationBarItem(
-              activeIcon: Icon(Icons.threed_rotation),
-              // Image(
-              //   image: AssetImage(AppIcons.modelActive),
-              //   width: Dimensions.thirty,
-              //   height: Dimensions.thirty,
-              // ),
-              icon: Icon(Icons.threed_rotation),
-              // Image(
-              //   image: AssetImage(AppIcons.model),
-              //   width: Dimensions.thirty,
-              //   height: Dimensions.thirty,
-              // ),
+              // activeIcon: Icon(Icons.threed_rotation),
+              activeIcon: Image(
+                image: AssetImage(AppIcons.modelActive),
+                width: Dimensions.thirty,
+                height: Dimensions.thirty,
+              ),
+              // icon: Icon(Icons.threed_rotation),
+              icon: Image(
+                image: AssetImage(AppIcons.model),
+                width: Dimensions.thirty,
+                height: Dimensions.thirty,
+                color: Theme.of(context).brightness == Brightness.dark ? Colors.white : null,
+              ),
               label: '3d Models',
               tooltip: '3d Models'
           ),
           BottomNavigationBarItem(
-            activeIcon: Icon(Icons.print),
-            // Image(
-            //   image: AssetImage(AppIcons.printerActive),
-            //   width: Dimensions.thirty,
-            //   height: Dimensions.thirty,
-            // ),
-            icon: Icon(Icons.local_print_shop_outlined),
-            // Image(
-            //   image: AssetImage(AppIcons.printer),
-            //   width: Dimensions.thirty,
-            //   height: Dimensions.thirty,
-            // ),
+            // activeIcon: Icon(Icons.print),
+            activeIcon: Image(
+              image: AssetImage(AppIcons.printerActive),
+              width: Dimensions.thirty,
+              height: Dimensions.thirty,
+            ),
+            // icon: Icon(Icons.local_print_shop_outlined),
+            icon: Image(
+              image: AssetImage(AppIcons.printer),
+              width: Dimensions.thirty,
+              height: Dimensions.thirty,
+              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : null,
+            ),
             label: 'Machines',
             tooltip: 'Machines',
           ),
           BottomNavigationBarItem(
-            activeIcon: Icon(Icons.earbuds),
-            // Image(
-            //   image: AssetImage(AppIcons.filamentActive),
-            //   width: Dimensions.thirty,
-            //   height: Dimensions.thirty,
-            // ),
-            icon: Icon(Icons.earbuds_outlined),
-            // Image(
-            //   image: AssetImage(AppIcons.filament),
-            //   width: Dimensions.thirty,
-            //   height: Dimensions.thirty,
-            // ),
+            // activeIcon: Icon(Icons.earbuds),
+            activeIcon: Image(
+              image: AssetImage(AppIcons.filamentActive),
+              width: Dimensions.thirty,
+              height: Dimensions.thirty,
+            ),
+            // icon: Icon(Icons.earbuds_outlined),
+            icon: Image(
+              image: AssetImage(AppIcons.filament),
+              width: Dimensions.thirty,
+              height: Dimensions.thirty,
+              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : null,
+            ),
             label: 'Filaments',
             tooltip: 'Filaments',
           ),
           BottomNavigationBarItem(
-            activeIcon: Icon(Icons.play_arrow),
-            // Image(
-            //   image: AssetImage(AppIcons.videosActive),
-            //   width: Dimensions.thirty,
-            //   height: Dimensions.thirty,
-            // ),
-            icon: Icon(Icons.play_arrow_outlined),
-            // Image(
-            //   image: AssetImage(AppIcons.videos),
-            //   width: Dimensions.thirty,
-            //   height: Dimensions.thirty,
-            // ),
+            // activeIcon: Icon(Icons.play_arrow),
+            activeIcon:  Image(
+              image: AssetImage(AppIcons.videosActive),
+              width: Dimensions.thirty,
+              height: Dimensions.thirty,
+            ),
+            // icon: Icon(Icons.play_arrow_outlined),
+            icon: Image(
+              image: AssetImage(AppIcons.videos),
+              width: Dimensions.thirty,
+              height: Dimensions.thirty,
+              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : null,
+            ),
             label: 'Videos',
             tooltip: 'Videos',
           ),
