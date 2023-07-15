@@ -33,6 +33,7 @@ class _UpdatePhoneNumberScreenState extends State<UpdatePhoneNumberScreen> {
         setState(() {
           _verificationId = verificationId;
         });
+
       },
       codeAutoRetrievalTimeout: (String verificationId) {
         // Auto-retrieval timeout
