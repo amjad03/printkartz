@@ -264,8 +264,8 @@ class _DetailScreenFor3dModelState extends State<DetailScreenFor3dModel> {
                       SizedBox(height: Dimensions.ten,),
                       Text("by, ${widget.author}",style: TextStyle(fontSize: Dimensions.fifteen, fontWeight: FontWeight.w400), maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.left,),
                       SizedBox(height: Dimensions.fifteen,),
-                      Text( widget.description,style: TextStyle(fontSize: Dimensions.fifteen, fontWeight: FontWeight.w300), maxLines: readMore ? 30 : 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.left,),
-                      widget.description.length > 80 ? Align(
+                      Text( widget.description,style: TextStyle(fontSize: Dimensions.fifteen, fontWeight: FontWeight.w300), maxLines: readMore ? 30 : 4, overflow: TextOverflow.ellipsis, textAlign: TextAlign.left,),
+                      widget.description.length > 200 ? Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
                             onPressed: () {
@@ -273,9 +273,10 @@ class _DetailScreenFor3dModelState extends State<DetailScreenFor3dModel> {
                                 readMore = !readMore;
                               });
                             },
-                            child: Text(readMore ? "Read Less" : "Read More",style: TextStyle(color: Colors.blue,decoration: TextDecoration.underline),)),
+                            child: Text(readMore ? "Read Less" : "Read More",style: const TextStyle(color: Colors.blue,decoration: TextDecoration.underline),)),
                       ) : Container(),
                       const Divider(),
+                      SizedBox(height: Dimensions.ten,),
                       Text("General", style: TextStyle(fontSize: Dimensions.fifteen,fontWeight: FontWeight.bold),),
                       SizedBox(height: Dimensions.fifteen,),
                       TwoTextInRow(title: 'Author', pair: widget.author,),
@@ -288,14 +289,14 @@ class _DetailScreenFor3dModelState extends State<DetailScreenFor3dModel> {
                         child: CustomButton(
                             onPressed: (){
                               // launchURL("https://www.printzkart.in/shop");
-                              // var url = Uri.parse("https://www.printzkart.in/shop");
-                              // launchUrl(url);
+                              var url = Uri.parse(widget.modelFileUrl.toString());
+                              launchUrl(url);
                               // downloadModel(widget.modelFileUrl);
-                              final downloadUrl = getModelDownloadUrl(widget.modelFileUrl);
-                              downloadUrl.then((url) {
-                                downloadModel(url);
-                                // print(url);
-                              });
+                              // final downloadUrl = getModelDownloadUrl(widget.modelFileUrl);
+                              // downloadUrl.then((url) {
+                              //   downloadModel(url);
+                              //   // print(url);
+                              // });
                             },
                             title: "Get Model"
                         ),
@@ -365,13 +366,13 @@ class _DetailScreenFor3dModelState extends State<DetailScreenFor3dModel> {
           ),
           Visibility(
               visible: _showProgressIndicator,
-              child: Opacity(
+              child: const Opacity(
                 opacity: 0.4,
                 child: ModalBarrier(dismissible: false, color: Colors.black),
               )),
           Visibility(
             visible: _showProgressIndicator,
-            child: Center(
+            child: const Center(
               child: CircularProgressIndicator(
                 color: Colors.white,
               ),
@@ -380,11 +381,12 @@ class _DetailScreenFor3dModelState extends State<DetailScreenFor3dModel> {
         ]
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.share),
+        backgroundColor: Theme.of(context).brightness == Brightness.dark ? Colors.tealAccent: Colors.teal,
         onPressed: (){
           var msg = 'Hey,Check out this amazing 3D Model I found on ${Strings.appTitle}! You can download the app and discover more like this from the Google Play Store: ${Strings.playStoreLink}';
           _shareFile(widget.thumbnailUrl, msg);
         },
+        child: const Icon(Icons.share),
       ),
     );
   }

@@ -314,8 +314,13 @@ class _HelpScreenState extends State<HelpScreen> {
   }
 
   ExpansionTile customExpansionTile(title, body){
+    var color = Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black;
     return ExpansionTile(
-      title: Text(title,style: TextStyle(fontWeight: fontWeight),),
+      // collapsedTextColor: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
+      // collapsedIconColor: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
+      iconColor: Theme.of(context).brightness == Brightness.dark ? Colors.grey : Colors.black,
+
+      title: Text(title,style: TextStyle(fontWeight: fontWeight,color: color),),
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: Dimensions.twenty),

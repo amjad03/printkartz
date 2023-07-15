@@ -39,6 +39,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
 
     var color = Theme.of(context).brightness == Brightness.dark ? const Color(0xFF333333) : Colors.white;
+    var cardColor = Theme.of(context).brightness == Brightness.dark ? Colors.grey.shade700 : Colors.white;
 
     Future<void> editName(BuildContext context) async {
       return showDialog<void>(
@@ -299,7 +300,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    // color: Colors.white,
+                    color: cardColor,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black38,
@@ -326,7 +328,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 SizedBox(height: Dimensions.ten,),
                 Container(
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      // color: Colors.white,
+                      color: cardColor,
                       boxShadow: [
                         BoxShadow(
                             color: Colors.black38,
